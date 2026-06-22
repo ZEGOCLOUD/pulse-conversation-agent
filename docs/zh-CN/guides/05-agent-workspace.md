@@ -24,11 +24,20 @@ preview 服务包不暴露这些文件和目录的路径配置。请保持默认
 - `actions.definitions`：机器可读的前端 ACTION 契约。这里定义 action 名称、参数 schema、必填参数、枚举值和 `ttsPolicy`。Mode prompt 只描述什么时候触发 action，不重新定义机器契约。
 - `skills.enabled` / `skills.disabled`：workspace 级 Skill 启停控制。
 - `memory.recentTurns` / `memory.compactTriggerTokens`：prompt history 和压缩阈值。
-- `asrEvidence.hotwords`：gateway-owned lifecycle 下的 ASR 热词策略。第一版只把腾讯高置信热词编译为 `ASR.Params.hotword_list`，并可选择作用于 `RegisterAgent`、`CreateAgentInstance` 或两者。
+- `asrEvidence.hotwords`：gateway-owned lifecycle 下的 ASR 热词策略。它是独立策略层，不是 ZEGO 原始 `ASR` 透传字段。第一版只把腾讯高置信热词编译为 `ASR.Params.hotword_list`，并可选择作用于 `RegisterAgent`、`CreateAgentInstance` 或两者。
+- `zegoAgent`：gateway-owned lifecycle 下的 ZEGO Agent profile。`asr`、`tts`、`vad`、`callbackConfig` 使用 ZEGO Server API 原始对象结构；`createAgentInstance` 是默认透传到 `CreateAgentInstance` 的原始 payload overlay。
 - `automation.heartbeat`：定时的上下文感知主动说话决策。
 - `automation.hooks.idle` 和 `automation.hooks.events`：automation 事件的外部 hook 回调。
 
 ZEGO AppID、ZEGO ServerSecret 和 Web RTC Token04 不属于 `workspace.json`。在 gateway-owned lifecycle 模式下，`workspace.json.zegoAgent` 可以声明 Agent profile，`asrEvidence.hotwords` 可以声明高置信 ASR 热词；Gateway 会在调用 ZEGO Server API 时编译这些配置。
+
+## ZEGO 原始参数透传
+
+`zegoAgent.asr`、`zegoAgent.tts`、`zegoAgent.vad`、`zegoAgent.callbackConfig` 和 `zegoAgent.createAgentInstance` 都尽量沿用 ZEGO Server API 原始字段名，便于跟随 ZEGO `RegisterAgent` / `CreateAgentInstance` 文档升级。字符串叶子节点可以写 `env:NAME` 或 `secret:NAME`，Gateway 会在调用 ZEGO 前从环境变量解析，避免把 TTS/ASR/LLM 供应商 key 明文写进 workspace。
+
+发起通话时，客户 BFF 可以通过 Gateway 服务端私有网络 API `POST /voice/agent-instances` 的 `zegoOverrides` 覆盖本次通话的任意 ZEGO `CreateAgentInstance` 字段。合并顺序是：Gateway 生成的基础 payload < `workspace.json` 的 `zegoAgent.createAgentInstance` < 请求体 `zegoOverrides`。`zegoOverrides` 只应由客户服务端生成，不应直接暴露给浏览器或移动端。
+
+注意：`asrEvidence.hotwords` 仍然是独立策略层。Gateway 会先完成 ZEGO 原始 `ASR` 的 workspace/request 透传合并，再按 `applyTo` 把支持的热词编译进最终 `ASR.Params`。如果本次通话把 `ASR.Vendor` 覆盖为非腾讯，而热词策略仍要求注入腾讯热词，Gateway 会明确报 vendor mismatch，避免静默生成错误参数。
 
 腾讯 ASR 热词示例：
 

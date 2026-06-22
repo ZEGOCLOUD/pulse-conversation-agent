@@ -6,7 +6,7 @@ Gateway 输出三类结构化 JSONL 日志：
 - `perf.jsonl`：性能数据，包含 token 消耗、TTFT、首句耗时、Gateway 路由耗时，以及可用的模块/任务耗时。
 - `error.jsonl`：只记录失败的 LLM 或 callback 请求，并包含是否可重试的提示。
 
-生产默认建议只开启 `perf.jsonl` 和 `error.jsonl`。`conversation.jsonl` 可能包含用户输入、workspace prompt、业务上下文、action 和 LLM 输出，应被视为敏感日志。
+生产默认建议只开启 `perf.jsonl` 和 `error.jsonl`。`conversation.jsonl` 可能包含用户输入、workspace prompt、业务上下文、action 和 LLM 输出，应被视为敏感日志。Public preview 制品默认启用 `observability.auditEncryption`：如果临时开启 `logs.info`，`conversation.jsonl` 写入的是加密 envelope，只保留 requestId、agentInstanceId、workspace、source、scenario、model 等索引字段为明文。
 
 在 `conversationAgent.json` 中配置：
 
@@ -21,15 +21,33 @@ Gateway 输出三类结构化 JSONL 日志：
       "info": false,
       "perf": true,
       "error": true
+    },
+    "auditEncryption": {
+      "enabled": true,
+      "requiredForConversation": true,
+      "recipients": [
+        {
+          "id": "zego-support",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\\n...\\n-----END PUBLIC KEY-----"
+        }
+      ]
     }
   }
 }
 ```
 
-开发或验收时，如果需要复盘完整 messages，可以通过 CLI 参数临时覆盖 JSON 配置：
+开发或验收时，如果需要复盘完整 messages，可以通过 CLI 参数临时覆盖 JSON 配置；在 public preview 中仍会写入加密 envelope：
 
 ```bash
 npm start -- --log-level info --log-dir ./logs/gateway --log-info true --log-perf true --log-error true
+```
+
+客户需要本地临时查看完整审计时，先生成自己的密钥对，把 `audit-public.pem` 加入 `auditEncryption.recipients`，然后用私钥解密：
+
+```bash
+./bin/conversation-agent audit keys generate --out ./audit-keys
+./bin/conversation-agent audit tail --file ./workspaces/default-service-assistant/logs/gateway/conversation.jsonl --private-key ./audit-keys/audit-private.pem --tail 40
+./bin/conversation-agent audit decrypt --file ./workspaces/default-service-assistant/logs/gateway/conversation.jsonl --private-key ./audit-keys/audit-private.pem --out ./audit-plain.jsonl
 ```
 
 ## 日志级别

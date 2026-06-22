@@ -42,12 +42,13 @@ try {
     'setup/setup.mjs',
     'setup/check.mjs',
     'examples/local-cloudflare-live-e2e/run.mjs',
+    'examples/web-live-call/dist/index.html',
     'workspaces/default-service-assistant/workspace.json',
-    'workspaces/action-validation/workspace.json',
-    'workspaces/isolation-validation/workspace.json'
+    'runtime/packages/gateway/dist/bin/conversation-agent-gateway'
   ]) {
     assert(fs.existsSync(path.join(packageRoot, required)), `artifact missing ${required}`);
   }
+  verifyPublicAuditDefaults(packageRoot);
   scanTree(packageRoot, { allowArtifacts: false });
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
@@ -62,13 +63,30 @@ function scanTree(root, options) {
     if (options.allowArtifacts && /^artifacts\/.+\.tgz(\.sha256)?$/.test(rel)) continue;
     assert(!/(^|\/)src\//.test(rel), `source directory must not be exposed: ${rel}`);
     assert(!/\.(ts|tsx|map)$/.test(rel), `source or source map must not be exposed: ${rel}`);
-    assert(!/(^|\/)(logs|memory|reports|states)\//.test(rel), `runtime output must not be exposed: ${rel}`);
+    assert(!/runtime\/packages\/gateway\/dist\/runtime\/agent\/(prompt-assembler|compact-manager|slc|sle)\.js$/.test(rel), `readable runtime internals must not be exposed: ${rel}`);
+    assert(
+      !/(^|\/)(logs|memory|reports|states)\//.test(rel) || path.basename(rel) === '.gitkeep',
+      `runtime output must not be exposed: ${rel}`
+    );
+    // Skip text scanning for compiled native binaries
+    if (/runtime\/packages\/gateway\/dist\/bin\//.test(rel)) continue;
     if (!isTextFile(file)) continue;
     const text = fs.readFileSync(file, 'utf8');
+    assert(!new RegExp('source' + 'MappingURL', 'i').test(text), `source map URL marker must not be exposed in ${rel}`);
+    assert(!new RegExp('sources' + 'Content', 'i').test(text), `source content marker must not be exposed in ${rel}`);
     for (const pattern of forbiddenTextPatterns()) {
       assert(!pattern.test(text), `forbidden text ${pattern} in ${rel}`);
     }
   }
+}
+
+function verifyPublicAuditDefaults(packageRoot) {
+  const config = readJson(path.join(packageRoot, 'conversationAgent.example.json'));
+  const audit = config.observability?.auditEncryption;
+  assert(audit?.enabled === true, 'public preview conversationAgent.example.json must enable observability.auditEncryption');
+  assert(audit?.requiredForConversation === true, 'public preview conversation audit encryption must be required');
+  assert(Array.isArray(audit?.recipients) && audit.recipients.some(item => item.id === 'zego-support' && item.publicKeyPem), 'public preview audit encryption must include zego-support public key recipient');
+  assert(config.observability?.logs?.info === false, 'public preview full conversation logs must remain disabled by default');
 }
 
 function forbiddenTextPatterns() {

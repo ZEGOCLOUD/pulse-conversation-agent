@@ -47,7 +47,7 @@ Gateway-owned lifecycle 模式内置一层轻量保护：`conversationAgent.zego
 | 能力 | 客户 BFF 职责 | gateway-owned 模式下的 Gateway 服务端私有网络 API |
 | --- | --- | --- |
 | RTC token | 生成 ZEGO RTC Token04，例如 `POST /rtc/token`。 | 无 |
-| 创建 AgentInstance | 校验用户/会话输入，分配 room/user/stream ID，调用 Gateway 服务端私有网络 API，并返回 `agentInstanceId`。 | `POST /voice/agent-instances` |
+| 创建 AgentInstance | 校验用户/会话输入，分配 room/user/stream ID；如需按通话覆盖 ASR/TTS/VAD 等 ZEGO 参数，由服务端生成 `zegoOverrides`；调用 Gateway 服务端私有网络 API，并返回 `agentInstanceId`。 | `POST /voice/agent-instances` |
 | AgentInstance 主动说话 | 按 `agentInstanceId` 鉴权并转发 speak 文本/选项。 | `POST /voice/agent-instances/{agentInstanceId}/speak` |
 | 结束 AgentInstance | 按 `agentInstanceId` 鉴权并结束实例。 | `POST /voice/agent-instances/{agentInstanceId}/end` |
 | 事件/信令 | 提供 customer-service SSE 或等价能力，用于 mode/action/perf/status。 | Gateway 交付runtime signals，浏览器不直接订阅。 |
@@ -62,6 +62,14 @@ preview 示例 当前 preview 推荐并仅验收单 Gateway。客户服务端可
 Gateway-owned 模式下，workspace 可以在 `asrEvidence.hotwords` 中声明高置信热词。Gateway 会在 `RegisterAgent` / `UpdateAgent` 和 `CreateAgentInstance` 时把支持的热词编译进 ZEGO `ASR.Params`。
 
 第一版只支持腾讯 ASR 直接热词。ZEGO 的 `HotWord` 参数已废弃，腾讯热词使用 `Params.hotword_list`，格式为 `热词|权重`，多个热词用英文逗号分隔。不同 ASR 厂商的热词能力不同：火山使用外部词表 ID，阿里部分模型不支持直接热词；这些厂商在本版本中不会静默降级为腾讯格式。
+
+`asrEvidence.hotwords` 与 ZEGO 原始 `ASR` 参数透传相互独立。`workspace.json.zegoAgent.asr`、`workspace.json.zegoAgent.createAgentInstance.ASR` 和创建通话请求里的 `zegoOverrides.ASR` 负责描述 ZEGO 原始 ASR 参数；热词策略会在这些参数合并完成后再编译到最终 `ASR.Params`。如果最终 `ASR.Vendor` 与热词策略不兼容，Gateway 会在调用 ZEGO 前失败。
+
+## ZEGO CreateAgentInstance 覆盖参数
+
+Gateway-owned 模式下，`workspace.json.zegoAgent.createAgentInstance` 可以声明默认 `CreateAgentInstance` payload overlay；客户 BFF 在发起通话时可以通过 `POST /voice/agent-instances` 的 `zegoOverrides` 覆盖本次通话的任意 ZEGO 字段，例如 ASR vendor、语种、TTS vendor、音色和供应商鉴权参数。合并顺序为 Gateway 基础 payload < workspace overlay < 请求级 `zegoOverrides`。字符串叶子节点支持 `env:NAME` / `secret:NAME` 引用，未解析到会返回错误且不会调用 ZEGO。
+
+`zegoOverrides` 是服务端私有网络 BFF 能力，不能直接暴露给浏览器/移动端。浏览器/移动端只传业务选择；客户 BFF 负责把业务选择映射成受控的 ZEGO 参数。
 
 ## 公网反代
 

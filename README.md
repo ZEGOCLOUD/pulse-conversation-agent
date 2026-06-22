@@ -95,7 +95,7 @@ This shape is meant for evaluation and pilot integration, not for repackaging Pu
 - Inspect `validation-evidence.json` for the highest validation level reached by this exact artifact.
 - Review `SECURITY.md` and `docs/en/PRODUCTION_CHECKLIST.md` before any production pilot.
 
-Current preview evidence includes Level 3 managed cloud live smoke for the mirrored artifact, but this is not a production acceptance certificate. Production use still requires customer-side stability, capacity, security, compliance, rollback, and support acceptance.
+Current preview evidence is recorded in `validation-evidence.json`. If the evidence level is only static artifact and repository validation, do not treat this artifact as having managed-cloud Level 3 live-smoke acceptance. Production use still requires customer-side stability, capacity, security, compliance, rollback, and support acceptance.
 
 ## Documentation
 
