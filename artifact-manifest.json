@@ -1,0 +1,26 @@
+{
+  "repoName": "pulse-conversation-agent",
+  "packageName": "pulse-conversation-agent-gateway-v0.1.0-preview.19",
+  "version": "0.1.0-preview.19",
+  "artifactName": "pulse-conversation-agent-gateway-v0.1.0-preview.19.tgz",
+  "sha256": "1e2ce8761de0370e0061b66d0361420bccaa4fc36863a7fa8809569342e9e307",
+  "releaseChannel": "preview",
+  "upgradePolicy": {
+    "compatibleFrom": "0.1.0-preview.15",
+    "requiresDevAssistantUpgrade": false,
+    "minimumDevAssistantVersion": "0.1.0-preview.0",
+    "requiresConfigMigration": false,
+    "migrationGuide": ""
+  },
+  "artifact": {
+    "extractDir": "pulse-conversation-agent-gateway-v0.1.0-preview.19",
+    "sha256": "1e2ce8761de0370e0061b66d0361420bccaa4fc36863a7fa8809569342e9e307"
+  },
+  "containerImageStatus": "planned-not-included",
+  "testedBackend": "ZEGOCLOUD AI Agent API",
+  "generatedAt": "2026-06-22T08:13:00.000Z",
+  "deliveryType": "public-preview-binary",
+  "sourceDisclosure": "compiled-runtime-only",
+  "supportBoundary": "developer-preview-no-default-sla",
+  "privateCustomerWorkspaces": "excluded"
+}

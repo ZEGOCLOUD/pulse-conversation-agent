@@ -1,0 +1,25 @@
+{
+  "packageName": "pulse-conversation-agent-gateway-v0.1.0-preview.19",
+  "artifactName": "pulse-conversation-agent-gateway-v0.1.0-preview.19.tgz",
+  "sha256": "1e2ce8761de0370e0061b66d0361420bccaa4fc36863a7fa8809569342e9e307",
+  "validationLevelReached": "level-3-managed-cloud-live-smoke",
+  "validated": [
+    "artifact checksum matches artifact-manifest.json",
+    "public artifact scan passed for source maps, TypeScript source, private customer workspace names, secrets, logs, memory, reports, and internal cloud details",
+    "adversarial security scan passed: compiled binary contains no embedded source maps, no TypeScript source, no .bun-build cache, and no internal cloud details",
+    "repository exposes customer-readable docs, checksums, and evidence while keeping runtime entrypoints, setup helpers, workspaces, examples, contracts, config examples, and compiled runtime inside the release artifact",
+    "exact artifact deployed to release-check from pulse-conversation-agent-gateway-v0.1.0-preview.19.tgz",
+    "release-check check, doctor, and public nginx route matrix passed",
+    "Gateway lifecycle and multi-workspace registration reported healthy for default, action-validation, and isolation-validation",
+    "server callback router delivered synthetic ZEGO UserSpeakAction to release-check and Gateway recorded user.speak.end with zego voice evidence",
+    "manual proactive speak path delivered through AgentInstance speak and appeared in the Web transcript",
+    "human-observed microphone Level 3 voice round was machine-reviewed in release-check logs: UserSpeakAction begin/end, ASRResult, LLMResult, AgentInstanceStatus SPEAKING/IDLE, and TTS latency evidence were present",
+    "heartbeat auto-speech reached decision=SPEAK and delivered through the same AgentInstance speech path",
+    "layered audit visibility verified: plaintext dialog fields visible without key, encrypted context layer requires customer-managed key pair"
+  ],
+  "notValidatedYet": [
+    "customer production stability, capacity, security, compliance, rollback, and support acceptance"
+  ],
+  "supportBoundary": "developer-preview-no-default-sla",
+  "notes": "This file describes the preview repository evidence state. It is not a production acceptance certificate."
+}

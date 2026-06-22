@@ -1,0 +1,28 @@
+Pulse Conversation Agent Preview Binary License
+
+Copyright (c) Pulse Conversation Agent contributors.
+
+This package is a Developer Preview binary distribution for evaluation and
+integration testing with realtime AI Agent APIs. It is not an open-source source
+distribution, and no source-code license is granted.
+
+Subject to your applicable agreement, the maintainers authorize you to download,
+install, and run the compiled package in your own environment for evaluation,
+integration, and pilot validation.
+
+You may not:
+
+- reverse engineer, decompile, disassemble, or attempt to derive source code
+  from the compiled package, except where applicable law expressly forbids this
+  restriction;
+- redistribute, sublicense, sell, rent, lease, or host this package for third
+  parties without explicit written authorization from the maintainers;
+- use this package to provide a competing hosted conversation-agent platform;
+- remove license notices or present this Developer Preview as a hosted service
+  or production SLA product.
+
+This Developer Preview is provided "as is" without default SLA, warranty,
+maintenance commitment, or production availability commitment. Production use
+requires your own stability, security, compliance, and rollback validation.
+Production support, incident response, and version-freeze obligations require a
+separate written agreement with the maintainers or backend provider.

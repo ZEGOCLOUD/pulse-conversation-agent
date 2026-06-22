@@ -1,0 +1,11 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.env.local
+*.log
+tmp/
+dist/
+node_modules/
+extracted-artifacts/
+
