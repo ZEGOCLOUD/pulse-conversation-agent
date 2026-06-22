@@ -24,4 +24,6 @@ If this package is installed through a managed layout such as `./pulse/current`,
 ./bin/conversation-agent rollback --project ./pulse-project
 ```
 
-The upgrade command preserves `.env.local`, `conversationAgent.json`, workspace edits, logs, memory, and runtime state in the customer project directory.
+Always run `upgrade --check --json` before switching runtime packages. The command reads the candidate `artifact-manifest.json` and reports whether `upgradePolicy.requiresDevAssistantUpgrade` blocks the runtime upgrade. If it does, update `ZEGOCLOUD/conversation-agent-dev-assistant`, reread `AI_INSTALL.md`, rerun the relevant assistant checklist, then rerun the runtime upgrade with `--confirm-dev-assistant-updated`.
+
+The upgrade preflight preserves `.env.local`, `conversationAgent.json`, workspace edits, logs, memory, and runtime state in the customer project directory. It does not silently update the developer-assistant repository.

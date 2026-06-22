@@ -1,7 +1,7 @@
 {
-  "packageName": "pulse-conversation-agent-gateway-v0.1.0-preview.19",
-  "artifactName": "pulse-conversation-agent-gateway-v0.1.0-preview.19.tgz",
-  "sha256": "6352c31cab1709e3657fa08c3bd017ae23d5c1c421a3bc22f5056499080b8f6b",
+  "packageName": "pulse-conversation-agent-gateway-v0.1.0-preview.20",
+  "artifactName": "pulse-conversation-agent-gateway-v0.1.0-preview.20.tgz",
+  "sha256": "c0991077e7f832ba78860d8120ae22a60ffb9c7c86effecc58b06e7fcd54affb",
   "validationLevelReached": "static-artifact-and-repository-validation",
   "validated": [
     "artifact checksum matches artifact-manifest.json",

@@ -1,12 +1,14 @@
 # Release Notes
 
-## v0.1.0-preview.19
+## v0.1.0-preview.20
 
 Customer candidate Developer Preview for Pulse Conversation Agent.
 
 - Provides a compiled realtime conversation-agent Gateway artifact.
 - Includes the `default-service-assistant` workspace, reference customer service, and Web validation assets.
 - Includes public preview docs for architecture, deployment, customer handoff, production evaluation, English developer guides, and security.
+- Adds `conversation-agent upgrade --check` so customers can inspect `artifact-manifest.json.upgradePolicy` before switching runtime packages.
+- Keeps runtime upgrades linked with `conversation-agent-dev-assistant` through the required dev-assistant sync gate and upgrade preflight.
 - Integrates with ZEGOCLOUD AI Agent APIs for RTC, ASR, TTS, interruption, and AgentInstance execution.
 - Does not pre-create runtime `logs/` or `memory/` directories inside the artifact; runtime data should be generated only in the evaluator's local or cloud environment.
 

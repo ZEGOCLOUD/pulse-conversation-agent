@@ -23,8 +23,8 @@
 解压收到的 tarball：
 
 ```bash
-tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.19.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.19
+tar -xzf pulse-conversation-agent-gateway-v0.1.0-preview.20.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.20
 export PATH=$HOME/.local/node/bin:$PATH
 ./bin/conversation-agent setup --project ./pulse-project --lang zh
 ```

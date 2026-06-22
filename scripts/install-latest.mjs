@@ -65,6 +65,8 @@ await run('tar', ['-xzf', artifactPath, '-C', releasesDir]);
 if (!fs.existsSync(targetDir)) {
   throw new Error(`Extracted artifact did not create expected directory: ${targetDir}`);
 }
+fs.copyFileSync(manifestPath, path.join(targetDir, 'artifact-manifest.json'));
+fs.copyFileSync(checksumPath, path.join(targetDir, path.basename(checksumPath)));
 fs.rmSync(currentLink, { recursive: true, force: true });
 fs.symlinkSync(targetDir, currentLink, 'dir');
 

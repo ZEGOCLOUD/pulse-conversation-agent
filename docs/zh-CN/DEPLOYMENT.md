@@ -24,4 +24,6 @@
 ./bin/conversation-agent rollback --project ./pulse-project
 ```
 
-升级命令会保留客户项目目录内的 `.env.local`、`conversationAgent.json`、workspace 编辑、日志、memory 和运行状态。
+切换运行包前必须先运行 `upgrade --check --json`。该命令会读取候选 `artifact-manifest.json`，并根据 `upgradePolicy.requiresDevAssistantUpgrade` 判断是否必须先更新 `ZEGOCLOUD/conversation-agent-dev-assistant`。如果被阻断，先更新 dev-assistant 仓库，重新阅读 `AI_INSTALL.zh-CN.md`，重新执行相关 assistant checklist，再带 `--confirm-dev-assistant-updated` 继续 runtime 升级。
+
+升级预检会保留客户项目目录内的 `.env.local`、`conversationAgent.json`、workspace 编辑、日志、memory 和运行状态，也不会静默更新 developer-assistant 仓库。

@@ -20,8 +20,10 @@ assert(manifest.deliveryType === 'public-preview-binary', 'manifest deliveryType
 assert(manifest.sourceDisclosure === 'compiled-runtime-only', 'manifest sourceDisclosure must be compiled-runtime-only');
 assert(manifest.releaseChannel === 'preview', 'manifest releaseChannel must be preview');
 assert(manifest.upgradePolicy && typeof manifest.upgradePolicy === 'object', 'manifest upgradePolicy is required');
-assert(manifest.upgradePolicy.requiresDevAssistantUpgrade === false, 'manifest requiresDevAssistantUpgrade must default to false');
-assert(manifest.upgradePolicy.requiresConfigMigration === false, 'manifest requiresConfigMigration must default to false');
+assert(typeof manifest.upgradePolicy.requiresDevAssistantUpgrade === 'boolean', 'manifest requiresDevAssistantUpgrade must be boolean');
+assert(typeof manifest.upgradePolicy.minimumDevAssistantVersion === 'string', 'manifest minimumDevAssistantVersion must be string');
+assert(typeof manifest.upgradePolicy.requiresConfigMigration === 'boolean', 'manifest requiresConfigMigration must be boolean');
+assert(typeof manifest.upgradePolicy.migrationGuide === 'string', 'manifest migrationGuide must be string');
 assert(manifest.artifact?.extractDir === manifest.packageName, 'manifest artifact.extractDir must match packageName');
 
 const actualSha = crypto.createHash('sha256').update(fs.readFileSync(artifactPath)).digest('hex');
