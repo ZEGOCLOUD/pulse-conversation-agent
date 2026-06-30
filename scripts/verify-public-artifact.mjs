@@ -38,6 +38,8 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-public-artifact-'));
 try {
   const result = spawnSync('tar', ['-xzf', artifactPath, '-C', tmp], { encoding: 'utf8' });
   assert(result.status === 0, `failed to extract artifact:\n${result.stdout}\n${result.stderr}`);
+  const rootEntries = fs.readdirSync(tmp).filter(name => name !== manifest.packageName);
+  assert(rootEntries.length === 0, `artifact has unexpected top-level entries: ${rootEntries.join(', ')}`);
   const packageRoot = path.join(tmp, manifest.packageName);
   for (const required of [
     'bin/conversation-agent',
@@ -63,6 +65,7 @@ function scanTree(root, options) {
     const rel = path.relative(root, file).replace(/\\/g, '/');
     if (rel.startsWith('.git/')) continue;
     if (options.allowArtifacts && /^artifacts\/.+\.tgz(\.sha256)?$/.test(rel)) continue;
+    assert(!/(^|\/)\._[^/]+$/.test(rel), `macOS AppleDouble metadata must not be shipped: ${rel}`);
     assert(!/(^|\/)src\//.test(rel), `source directory must not be exposed: ${rel}`);
     assert(!/\.(ts|tsx|map)$/.test(rel), `source or source map must not be exposed: ${rel}`);
     assert(!/runtime\/packages\/gateway\/dist\/runtime\/agent\/(prompt-assembler|compact-manager|slc|sle)\.js$/.test(rel), `readable runtime internals must not be exposed: ${rel}`);

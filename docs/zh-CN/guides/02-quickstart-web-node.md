@@ -59,7 +59,7 @@ cp .env.example .env.local
 
 - `server.publicUrl`：ZEGO AI Agent LLM callback 可访问的公网 HTTPS URL。
 - `server.callbackPath`：通常为 `/voice-gateway/chat/completions`。
-- `defaultWorkspace`：通常为 `./workspaces/default-service-assistant`。如果使用 preview 示例 preview 示例包，则选择 `./workspaces/preview 示例-china`。
+- `defaultWorkspace`：通常为 `./workspaces/default-service-assistant`。如果使用自定义 workspace，请改成客户项目中的实际 workspace 路径。
 - `llm.baseUrl` 和 `llm.apiKeyRef`。
 - `security.controlTokenRef` 和 `security.callbackAuthTokenRef`。
 - Gateway 负责 ZEGO Agent lifecycle 时，需要配置 `zego.lifecycleOwner`、`zego.appId` 和 `zego.serverSecretRef`。

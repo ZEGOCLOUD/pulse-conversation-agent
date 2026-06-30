@@ -1,15 +1,15 @@
 # Agent Workspace
 
-Workspace 文件用于定义 Agent 的业务行为，不需要修改 Gateway 代码。`workspace.json` 是 beta 公开契约中的项目级配置入口。
+Workspace 文件用于定义 Agent 的业务行为，不需要修改 Gateway 代码。`modes/*.md` 是单个 mode 的行为事实源；`workspace.json` 是 workspace 级装配入口。
 
 核心文件：
 
-- `workspace.json`：workspace 名称、初始 mode、前端 ACTION 契约、Skill 启停、memory 阈值和 automation 策略
+- `workspace.json`：workspace 名称、初始 mode、可选跨 mode transitions、前端 ACTION 契约、Skill 启停、memory 阈值和 automation 策略
 - `IDENTITY.md`：Agent 是谁，以及如何说话
 - `SOUL.md`：全局目标、行为和安全边界
 - `USER.md`：可选用户上下文
 - `HEARTBEAT.md`：上下文感知 heartbeat automation 的策略文本
-- `modes/`：分阶段行为和 mode 切换条件
+- `modes/`：分阶段行为、mode 描述、知识约束、RAG 挂载和自然语言切换条件
 - `skills/`：外部业务能力
 - `knowledge/`：项目知识文件
 - `logs/`：Gateway 生成的运行数据。`logs/gateway/` 是可观测日志；`logs/state/` 是可恢复运行状态。
@@ -19,8 +19,9 @@ preview 服务包不暴露这些文件和目录的路径配置。请保持默认
 
 `workspace.json` 公开字段：
 
-- `modes.initial`：初始 mode。详细规则和切换条件仍放在 `modes/*.md`。
-- `modes.definitions.<mode>.knowledge.required`：是否要求该 mode 的事实类知识回答必须基于本地 knowledge 或已挂载 RAG Skill 结果。默认 `false`。
+- `modes.initial`：初始 mode。该值必须匹配某个 `modes/*.md` frontmatter 的 `name`。
+- `modes.transitions`：可选的工程化跨 mode 路由表。它用正则做确定性优化；不配置或未命中时，仍由 AI 根据 mode 的 `description`、正文 prompt 和 `mode_switch` 自主判断是否切换。
+- `modes.definitions`：旧版兼容字段。新 workspace 不需要在这里重复写 `file` / `description` / `knowledge.required`。
 - `actions.definitions`：机器可读的前端 ACTION 契约。这里定义 action 名称、参数 schema、必填参数、枚举值和 `ttsPolicy`。Mode prompt 只描述什么时候触发 action，不重新定义机器契约。
 - `skills.enabled` / `skills.disabled`：workspace 级 Skill 启停控制。
 - `memory.recentTurns` / `memory.compactTriggerTokens`：prompt history 和压缩阈值。
@@ -73,6 +74,7 @@ Mode frontmatter 可以按模式限定知识访问：
 name: support
 description: 客服支持模式
 knowledge:
+  required: true
   include:
     - support_faq
   rag:
@@ -81,9 +83,31 @@ knowledge:
 ---
 ```
 
-`include` 引用本地 `knowledge/*.json` 文件。`rag` 引用 workspace Skill；底层 RAG 服务如何选择和查询知识库，由客户自己决定。
+`required` 表示该 mode 的事实类回答必须基于本地 knowledge 或已挂载 RAG Skill 结果。`include` 引用本地 `knowledge/*.json` 文件。`rag` 引用 workspace Skill；底层 RAG 服务如何选择和查询知识库，由客户自己决定。
 
-如果某个 mode 在 `workspace.json` 中配置了 `knowledge.required: true`，本地 knowledge 没命中且没有可复用的 active RAG 时，Gateway 会走标准 Skill 流程查询该 mode 挂载的 RAG Skill。RAG Skill 仍只接收 `{ "query": "..." }`，不要求 workspace 暴露知识库 ID 或检索参数。
+如果某个 mode 在 frontmatter 中配置了 `knowledge.required: true`，本地 knowledge 没命中且没有可复用的 active RAG 时，Gateway 会走标准 Skill 流程查询该 mode 挂载的 RAG Skill。RAG Skill 仍只接收 `{ "query": "..." }`，不要求 workspace 暴露知识库 ID 或检索参数。旧版 `workspace.json.modes.definitions.<mode>.knowledge.required` 仍兼容读取，但会输出迁移 warning，且 frontmatter 优先。
+
+跨 mode 的确定性路由写在 `workspace.json.modes.transitions`。这里适合放“从闲聊进入客服”“从客服回玩法”等工程化优化规则，不适合放单个 mode 的回答策略。旧版 `requiredRouting.postAnswerModeHints` 仍兼容读取，但新配置不再推荐单独字段；“答完后回到哪个 mode”应写在当前 mode 的 Markdown prompt 中，用 `mode_switch` 明确表达，或由下一轮用户输入命中 `modes.transitions`。
+
+```json
+{
+  "modes": {
+    "initial": "small_talk",
+    "transitions": [
+      {
+        "id": "route-support-to-cs-help",
+        "from": ["small_talk", "play_warmup"],
+        "to": "support",
+        "priority": 100,
+        "match": ["\\b(recharge|refund|account|login)\\b"],
+        "exclude": ["play|game|watch movie"]
+      }
+    ]
+  }
+}
+```
+
+正则规则：`match` 任意一条命中即允许 transition；`exclude` 任意一条命中即阻断 transition。pattern 写 JavaScript regex source，不写 `/.../i`。runtime 匹配前会做 `trim`、`NFKC`、合并空白，并默认使用 `iu` flags。
 
 ## 会话用户上下文
 

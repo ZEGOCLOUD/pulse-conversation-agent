@@ -28,4 +28,4 @@ Do not store customer secrets in the repository or runtime package. Use `.env.lo
 - Level 2.5: local tunnel Live Smoke with real ZEGOCLOUD callbacks.
 - Level 3: public HTTPS deployment from the exact release artifact.
 
-The current preview has Level 3 managed cloud smoke evidence for the mirrored artifact, but that is not production acceptance.
+The current preview has static artifact and repository validation only. Level 3 exact-artifact public HTTPS live validation has not been completed for this sha.
