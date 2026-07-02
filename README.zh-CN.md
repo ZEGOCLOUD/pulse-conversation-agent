@@ -34,8 +34,8 @@
 ## 最快体验
 
 ```bash
-tar -xzf artifacts/pulse-conversation-agent-gateway-v0.1.0-preview.21.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.21
+tar -xzf artifacts/pulse-conversation-agent-gateway-v0.1.0-preview.22.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.22
 ./bin/conversation-agent setup --project ./ca3-project
 ./bin/conversation-agent check --project ./ca3-project
 ./bin/conversation-agent start all --project ./ca3-project --daemon
@@ -68,13 +68,13 @@ cd pulse-conversation-agent-gateway-v0.1.0-preview.21
 Codex、Cursor、Claude Code 等工具建议配合下面的辅助仓库使用：
 
 ```text
-https://github.com/Cogit-oergo-sum/conversation-agent-dev-assistant
+https://github.com/ZEGOCLOUD/conversation-agent-dev-assistant
 ```
 
 让 AI 工具阅读 `AI_INSTALL.md` 和 `AGENTS.md`，再安装本 preview 制品；遇到密钥输入时，不要把密钥粘贴到聊天里。
 
 ## 版本
 
-- Preview version：`0.1.0-preview.21`
-- Artifact：`pulse-conversation-agent-gateway-v0.1.0-preview.21.tgz`
+- Preview version：`0.1.0-preview.22`
+- Artifact：`pulse-conversation-agent-gateway-v0.1.0-preview.22.tgz`
 - Container image：已规划，当前 preview 不包含

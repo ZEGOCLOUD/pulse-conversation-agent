@@ -138,5 +138,5 @@ Use the conversation-agent-dev-assistant repository to install the latest Pulse 
 ## Version
 
 - Preview channel: latest prerelease by default
-- Current mirrored artifact: `pulse-conversation-agent-gateway-v0.1.0-preview.21.tgz`
+- Current mirrored artifact: `pulse-conversation-agent-gateway-v0.1.0-preview.22.tgz`
 - Container image: planned, not included in this preview

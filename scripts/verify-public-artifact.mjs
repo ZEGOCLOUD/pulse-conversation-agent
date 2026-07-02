@@ -54,6 +54,7 @@ try {
   }
   verifyPublicAuditDefaults(packageRoot);
   scanTree(packageRoot, { allowArtifacts: false });
+  verifyBinaryForbiddenStrings(path.join(packageRoot, 'runtime/packages/gateway/dist/bin/conversation-agent-gateway'));
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }
@@ -108,8 +109,25 @@ function forbiddenTextPatterns() {
     new RegExp('47\\.103\\.123\\.211'),
     new RegExp('access\\.oa\\.zego\\.im'),
     new RegExp('rhett' + 'qi'),
-    new RegExp('id_ed25519_zego_' + 'bastion')
+    new RegExp('id_' + 'ed25519_' + 'zego_' + 'bastion'),
+    new RegExp('codex-' + 'a'),
+    new RegExp('codex-' + 'b'),
+    new RegExp('release-' + 'check'),
+    new RegExp('\\/home\\/www')
   ];
+}
+
+function verifyBinaryForbiddenStrings(binaryPath) {
+  assert(fs.existsSync(binaryPath), `compiled gateway binary is missing: ${binaryPath}`);
+  const result = spawnSync('strings', [binaryPath], { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 });
+  if (result.status !== 0) {
+    console.warn('[verify-public-artifact] warning: `strings` command unavailable, skipping binary content scan');
+    return;
+  }
+  const text = result.stdout || '';
+  for (const pattern of forbiddenTextPatterns()) {
+    assert(!pattern.test(text), `forbidden binary text ${pattern} in compiled gateway binary`);
+  }
 }
 
 function walk(dir) {

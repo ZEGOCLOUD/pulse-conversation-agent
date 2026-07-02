@@ -1,6 +1,6 @@
 # Release Notes
 
-## v0.1.0-preview.21
+## v0.1.0-preview.22
 
 Customer candidate Developer Preview for Pulse Conversation Agent.
 
@@ -9,9 +9,11 @@ Customer candidate Developer Preview for Pulse Conversation Agent.
 - Includes public preview docs for architecture, deployment, customer handoff, production evaluation, English developer guides, and security.
 - Adds `conversation-agent upgrade --check` so customers can inspect `artifact-manifest.json.upgradePolicy` before switching runtime packages.
 - Keeps runtime upgrades linked with `conversation-agent-dev-assistant` through the required dev-assistant sync gate and upgrade preflight.
+- Adds session owner routing so one Gateway process can host multiple workspaces while routing each `agentInstanceId` / `callId` back to its bound workspace runtime.
 - Moves mode knowledge policy to `modes/*.md` frontmatter and supports optional `workspace.json.modes.transitions` for deterministic regex-based cross-mode routing.
 - Keeps legacy `modes.definitions` compatibility while documenting it as deprecated for new workspaces.
 - Integrates with ZEGOCLOUD AI Agent APIs for RTC, ASR, TTS, interruption, and AgentInstance execution.
+- Excludes private customer workspaces; customers keep their own workspace/config during upgrade.
 - Does not include runtime log or memory data inside the artifact; only empty placeholder directories may be present for first-run layout.
 
 Validation summary:
