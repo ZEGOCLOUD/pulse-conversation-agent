@@ -34,8 +34,8 @@
 ## 最快体验
 
 ```bash
-tar -xzf artifacts/pulse-conversation-agent-gateway-v0.1.0-preview.22.tgz
-cd pulse-conversation-agent-gateway-v0.1.0-preview.22
+tar -xzf artifacts/pulse-conversation-agent-gateway-v0.1.0-preview.23.tgz
+cd pulse-conversation-agent-gateway-v0.1.0-preview.23
 ./bin/conversation-agent setup --project ./ca3-project
 ./bin/conversation-agent check --project ./ca3-project
 ./bin/conversation-agent start all --project ./ca3-project --daemon
@@ -75,6 +75,6 @@ https://github.com/ZEGOCLOUD/conversation-agent-dev-assistant
 
 ## 版本
 
-- Preview version：`0.1.0-preview.22`
-- Artifact：`pulse-conversation-agent-gateway-v0.1.0-preview.22.tgz`
+- Preview version：`0.1.0-preview.23`
+- Artifact：`pulse-conversation-agent-gateway-v0.1.0-preview.23.tgz`
 - Container image：已规划，当前 preview 不包含

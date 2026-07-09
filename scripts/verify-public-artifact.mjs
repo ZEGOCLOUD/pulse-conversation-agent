@@ -74,6 +74,11 @@ function scanTree(root, options) {
       !/(^|\/)(logs|memory|reports|states)\//.test(rel) || path.basename(rel) === '.gitkeep',
       `runtime output must not be exposed: ${rel}`
     );
+    assert(
+      !rawArtifactPathPattern().test(rel),
+      `raw request or replay artifact must not be exposed: ${rel}`
+    );
+    assert(!contextReplayPathPattern().test(rel), `internal replay artifact must not be exposed: ${rel}`);
     // Skip text scanning for compiled native binaries
     if (/runtime\/packages\/gateway\/dist\/bin\//.test(rel)) continue;
     if (!isTextFile(file)) continue;
@@ -98,8 +103,12 @@ function verifyPublicAuditDefaults(packageRoot) {
 function forbiddenTextPatterns() {
   return [
     new RegExp('Top' + 'Top', 'i'),
+    new RegExp('Dui' + 'Dui', 'i'),
     new RegExp('Open' + 'Claw', 'i'),
     new RegExp('confiden' + 'tial', 'i'),
+    new RegExp('\\/Users\\/zego'),
+    new RegExp('conversation-agent-gateway-' + 'dev'),
+    new RegExp('pulse-conversation-agent-' + 'internal'),
     new RegExp('zego-conversation-' + 'agent', 'i'),
     new RegExp('ZEGO official ' + 'SDK', 'i'),
     new RegExp('ZEGO standard SLA ' + 'product', 'i'),
@@ -113,8 +122,21 @@ function forbiddenTextPatterns() {
     new RegExp('codex-' + 'a'),
     new RegExp('codex-' + 'b'),
     new RegExp('release-' + 'check'),
-    new RegExp('\\/home\\/www')
+    new RegExp('\\/home\\/www'),
+    new RegExp('raw' + '[-_ ]?llm' + '[-_ ]?request', 'i'),
+    new RegExp('raw' + '[-_ ]?request' + '[-_ ]?dump', 'i'),
+    new RegExp('replay' + '[-_ ]?pack', 'i'),
+    new RegExp('context' + '[-_ ]?engineering' + '[-_ ]?replay', 'i'),
+    new RegExp('reports' + '\\/verification', 'i')
   ];
+}
+
+function rawArtifactPathPattern() {
+  return new RegExp('(^|\\/)(replay|replays|raw-' + 'llm-requests|raw-' + 'requests)\\/', 'i');
+}
+
+function contextReplayPathPattern() {
+  return new RegExp('context-' + 'engineering-' + 'replay', 'i');
 }
 
 function verifyBinaryForbiddenStrings(binaryPath) {

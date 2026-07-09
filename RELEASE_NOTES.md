@@ -1,6 +1,6 @@
 # Release Notes
 
-## v0.1.0-preview.22
+## v0.1.0-preview.23
 
 Customer candidate Developer Preview for Pulse Conversation Agent.
 
