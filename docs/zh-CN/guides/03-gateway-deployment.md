@@ -1,6 +1,6 @@
-# Pulse Conversation Agent 部署
+# ZEGO Conversational Agent Service 部署
 
-默认 beta 形态下，Pulse Conversation Agent 运行在客户服务器上。Node.js Gateway 进程是服务包内的可运行入口。
+默认 beta 形态下，ZEGO Conversational Agent Service 运行在客户服务器上。Node.js Gateway 进程是服务包内的可运行入口。
 
 部署要求：
 
@@ -11,7 +11,7 @@
 - 已配置的控制 token 策略
 - 日志保留和脱敏策略
 
-ZEGO AI Agent 服务端负责 RTC 音频、ASR、TTS、打断和 AgentInstance 执行。Pulse Conversation Agent 负责文字侧编排层；在推荐模式下，也由它代调 ZEGO Server API 完成 Agent 注册、AgentInstance 创建/删除、在 `/voice-gateway/zego/events` 直收 ZEGO event callback，并代发主动 TTS。客户服务端保留 BFF 职责，仍然为 Web/移动端生成 RTC Token04。
+ZEGO AI Agent 服务端负责 RTC 音频、ASR、TTS、打断和 AgentInstance 执行。ZEGO Conversational Agent Service 负责文字侧编排层；在推荐模式下，也由它代调 ZEGO Server API 完成 Agent 注册、AgentInstance 创建/删除、在 `/voice-gateway/zego/events` 直收 ZEGO event callback，并代发主动 TTS。客户服务端保留 BFF 职责，仍然为 Web/移动端生成 RTC Token04。
 
 ## Lifecycle 模式
 
@@ -53,7 +53,7 @@ Gateway-owned lifecycle 模式内置一层轻量保护：`conversationAgent.zego
 | 事件/信令 | 提供 customer-service SSE 或等价能力，用于 mode/action/perf/status。 | Gateway 交付runtime signals，浏览器不直接订阅。 |
 | Action feedback | 接收前端 action result，并带客户侧鉴权转发给 Gateway。 | `POST /voice/action-result` |
 
-随包的 `examples/agent-service-zego-create-agent` 是这个契约的参考 BFF 实现，不是 Pulse Conversation Agent runtime 的必需组件。
+随包的 `examples/agent-service-zego-create-agent` 是这个契约的参考 BFF 实现，不是 ZEGO Conversational Agent Service runtime 的必需组件。
 
 preview 示例 当前 preview 推荐并仅验收单 Gateway。客户服务端可以多实例部署，但所有 AgentInstance 创建、主动说话、结束、action feedback 和 ZEGO callback 都应回到这台 Gateway。多 Gateway owner routing 不属于当前 preview 交付承诺；如果客户强需求，需要 ZEGO 单独评审、开发、压测和验收。
 

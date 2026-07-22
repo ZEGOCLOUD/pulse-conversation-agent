@@ -1,6 +1,6 @@
 # Level 2.5 验证矩阵
 
-当你通过本地 Cloudflare Tunnel 和真实 realtime backend 凭据验证 Pulse Conversation Agent 时，使用本矩阵记录结果。它把普通语音链路、ACTION feedback、主动说话和多 workspace 行为拆开，避免把“能正常说话”误认为全部能力都已验证。
+当你通过本地 Cloudflare Tunnel 和真实 realtime backend 凭据验证 ZEGO Conversational Agent Service 时，使用本矩阵记录结果。它把普通语音链路、ACTION feedback、主动说话和多 workspace 行为拆开，避免把“能正常说话”误认为全部能力都已验证。
 
 Level 2.5 是开发者集成 smoke，不替代生产验收或托管云端验收。
 

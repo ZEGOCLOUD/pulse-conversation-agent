@@ -1,6 +1,6 @@
 # Quickstart
 
-Pulse Conversation Agent is installed from a GitHub Release artifact. Keep the immutable runtime package separate from the customer-owned project directory.
+ZEGO Conversational Agent Service is installed from a GitHub Release artifact. Keep the immutable runtime package separate from the customer-owned project directory.
 
 ## Install
 

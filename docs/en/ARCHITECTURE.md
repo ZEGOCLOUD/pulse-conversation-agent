@@ -9,7 +9,7 @@ Customer App/Web
 Customer Service
   |  auth, RTC Token04, runtime config, events, action feedback
   v
-Conversation Agent Gateway
+ZEGO Conversational Agent Gateway
   |  LLM callback, workspace, stage guidance, Skill, Hook, Action, context, observability
   v
 ZEGOCLOUD AI Agent API / Server
@@ -21,7 +21,7 @@ ZEGOCLOUD AI Agent API / Server
 | Surface | Responsibility |
 | --- | --- |
 | ZEGOCLOUD AI Agent API / Server | RTC audio, ASR, TTS playback, interruption events, and AgentInstance execution. |
-| Pulse Conversation Agent Gateway | LLM callbacks, workspace runtime, stage guidance, Action/Skill orchestration, dynamic context, and observability. |
+| ZEGO Conversational Agent Gateway | LLM callbacks, workspace runtime, stage guidance, Action/Skill orchestration, dynamic context, and observability. |
 | Customer Service | User authorization, RTC Token04, private Gateway calls, event relay, and action feedback relay. |
 | Customer App/Web | Express SDK integration, room entry, microphone publishing, subtitles/status/action UI display. |
 
@@ -38,10 +38,10 @@ Implementation details such as internal prompt assembly, compact strategy, bench
 
 ## Repository Boundary
 
-Pulse is the external preview surface for compiled artifacts. Source code is not included in this preview, and developer-assistant materials are maintained separately.
+ZEGO Conversational Agent is the external preview surface for compiled artifacts. Source code is not included in this preview, and developer-assistant materials are maintained separately.
 
 | Surface | Purpose |
 | --- | --- |
-| Pulse repository | Evaluation docs, release manifest, checksum, and compiled preview artifact. |
+| ZEGO Conversational Agent repository | Evaluation docs, release manifest, checksum, and compiled preview artifact. |
 | Developer assistant repository | AI coding tool guidance, skills, plugin metadata, prompt optimization, and troubleshooting workflows. |
 | Source code | Not included in this preview. |

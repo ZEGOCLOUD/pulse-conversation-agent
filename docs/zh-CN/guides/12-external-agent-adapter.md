@@ -1,6 +1,6 @@
 # 外部 Agent / 工具适配
 
-外部 Agent 或工具系统应该作为 Skill、Capability 或 MCP/HTTP adapter 接入，而不是改变 Pulse Conversation Agent 的核心回调契约。
+外部 Agent 或工具系统应该作为 Skill、Capability 或 MCP/HTTP adapter 接入，而不是改变 ZEGO Conversational Agent Service 的核心回调契约。
 
 推荐原则：
 

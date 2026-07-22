@@ -1,6 +1,6 @@
 # Observability
 
-Pulse emits structured signals so teams can debug realtime Agent behavior without exposing secrets or full private transcripts by default.
+ZEGO Conversational Agent emits structured signals so teams can debug realtime Agent behavior without exposing secrets or full private transcripts by default.
 
 ## What To Watch
 

@@ -33,6 +33,7 @@ assert(actualSha === manifest.sha256, 'manifest sha256 does not match artifact')
 assert(actualSha === manifest.artifact?.sha256, 'manifest artifact.sha256 does not match artifact');
 
 scanTree(repoRoot, { allowArtifacts: true });
+verifyBrowsableRepositoryBrand();
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-public-artifact-'));
 try {
@@ -64,7 +65,7 @@ console.log(`Verified ${manifest.artifactName} (${actualSha}).`);
 function scanTree(root, options) {
   for (const file of walk(root)) {
     const rel = path.relative(root, file).replace(/\\/g, '/');
-    if (rel.startsWith('.git/')) continue;
+    if (rel === '.git' || rel.startsWith('.git/')) continue;
     if (options.allowArtifacts && /^artifacts\/.+\.tgz(\.sha256)?$/.test(rel)) continue;
     assert(!/(^|\/)\._[^/]+$/.test(rel), `macOS AppleDouble metadata must not be shipped: ${rel}`);
     assert(!/(^|\/)src\//.test(rel), `source directory must not be exposed: ${rel}`);
@@ -98,6 +99,40 @@ function verifyPublicAuditDefaults(packageRoot) {
   assert(audit?.requiredForConversation === true, 'public preview conversation audit encryption must be required');
   assert(Array.isArray(audit?.recipients) && audit.recipients.some(item => item.id === 'zego-support' && item.publicKeyPem), 'public preview audit encryption must include zego-support public key recipient');
   assert(config.observability?.logs?.info === false, 'public preview full conversation logs must remain disabled by default');
+}
+
+function verifyBrowsableRepositoryBrand() {
+  const primaryReadmePath = path.join(repoRoot, 'README.md');
+  const primaryReadme = fs.readFileSync(primaryReadmePath, 'utf8');
+  for (const required of [
+    'ZEGO Conversational Agent',
+    'ZEGO Conversational Agent Service, version 3.0 Beta',
+    'Built on ZEGO Conversational AI capabilities'
+  ]) {
+    assert(primaryReadme.includes(required), `primary README must contain ${required}`);
+  }
+
+  for (const file of walk(repoRoot)) {
+    const rel = path.relative(repoRoot, file).replace(/\\/g, '/');
+    if (rel === '.git' || rel.startsWith('.git/') || !isBrowsableTextFile(rel)) continue;
+    const text = fs.readFileSync(file, 'utf8');
+    for (const pattern of currentBrandPatterns()) {
+      assert(!pattern.test(text), `customer-visible current-brand text ${pattern} in ${rel}`);
+    }
+  }
+}
+
+function isBrowsableTextFile(rel) {
+  return path.extname(rel).toLowerCase() === '.md' || path.basename(rel) === 'LICENSE';
+}
+
+function currentBrandPatterns() {
+  return [
+    /Pulse Conversation Agent/i,
+    /ZEGO Conversation Agent/i,
+    /Conversation Agent 3\.0 Service/i,
+    /Conversation AI/i
+  ];
 }
 
 function forbiddenTextPatterns() {

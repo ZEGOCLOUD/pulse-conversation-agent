@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a reproducible issue in the Pulse Conversation Agent preview
+about: Report a reproducible issue in the ZEGO Conversational Agent preview
 title: "[Bug]: "
 labels: bug
 assignees: ""

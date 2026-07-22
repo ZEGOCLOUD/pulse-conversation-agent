@@ -1,6 +1,6 @@
 # Deployment
 
-This file is inside an unpacked Pulse Conversation Agent runtime package. Use the packaged CLI directly.
+This file is inside an unpacked ZEGO Conversational Agent Service runtime package. Use the packaged CLI directly.
 
 ```bash
 ./bin/conversation-agent setup --project ./pulse-project

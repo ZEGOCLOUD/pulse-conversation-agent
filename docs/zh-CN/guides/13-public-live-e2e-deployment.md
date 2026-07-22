@@ -7,7 +7,7 @@
 客户部署流程：
 
 ```text
-收到 Pulse Conversation Agent tarball
+收到 ZEGO Conversational Agent Service tarball
   -> 上传 tarball 到 Linux 服务器
   -> 解压服务包
   -> 初始化客户项目目录

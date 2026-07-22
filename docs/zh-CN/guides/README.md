@@ -1,6 +1,6 @@
 # 中文开发者指南
 
-本目录来自内部中文 01-14 文档的客户可见版本，已去除客户专属、内部发布治理、内部环境和历史命名内容。它用于帮助开发者和 AI dev assistant 理解如何接入、部署、配置、验证和排障 Pulse Conversation Agent。
+本目录来自内部中文 01-14 文档的客户可见版本，已去除客户专属、内部发布治理、内部环境和历史命名内容。它用于帮助开发者和 AI dev assistant 理解如何接入、部署、配置、验证和排障 ZEGO Conversational Agent Service。
 
 > 说明：`pulse-project` 是 `setup --project ./pulse-project` 生成的项目目录，不是 workspace 名。默认 workspace id 是 `default`，默认 workspace 目录是 `workspaces/default-service-assistant`；验证 workspace id 包括 `action-validation` 和 `isolation-validation`。
 

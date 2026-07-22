@@ -1,8 +1,10 @@
-# Pulse Conversation Agent
+# ZEGO Conversational Agent
 
 语言：简体中文 | [English](README.md)
 
-`pulse-conversation-agent` 是一个用于构建实时互动 Conversation Agent 的 Developer Preview Gateway。它以编译后的运行制品和客户接入示例的形式分发，不是开源源码项目，也不是托管服务或生产 SLA 产品。
+ZEGO Conversational Agent Service, version 3.0 Beta 是一个用于构建实时互动 ZEGO Conversational Agent 的 Developer Preview Gateway。Built on ZEGO Conversational AI capabilities，它以编译后的运行制品和客户接入示例的形式分发，不是开源源码项目，也不是托管服务或生产 SLA 产品。
+
+兼容性说明：`pulse-conversation-agent` 仓库和制品路径保留为兼容标识符；产品品牌为 ZEGO Conversational Agent。
 
 它用于帮助客户自部署一个实时 Agent 编排服务：处理 LLM callback、workspace、阶段人设指引、UI Action、Skill、Hook、动态上下文和观测。当前 preview 对接 ZEGOCLOUD AI Agent APIs，由其负责 RTC、ASR、TTS、打断和 AgentInstance 执行。
 
@@ -10,7 +12,7 @@
 
 ## 包含内容
 
-- 编译后的 Conversation Agent Gateway runtime。
+- 编译后的 ZEGO Conversational Agent Gateway runtime。
 - 可编辑的默认 workspace。
 - 参考客户服务端，用于 RTC Token、AgentInstance 生命周期、事件和 action feedback。
 - Web 验证页面，用于 RTC 进房、字幕、mode/status 展示和 Action UI 测试。
@@ -29,7 +31,7 @@
 | `pulse-conversation-agent` | 所有人可看的 preview 仓库，包含文档、manifest、checksum 和编译后的 preview 制品。 |
 | `conversation-agent-dev-assistant` | 面向 AI 编程工具的辅助仓库，指导安装、验收、prompt 优化和排障，但不包含 runtime 制品或闭源源码。 |
 | 内部源码仓 | 闭源源码和 release governance 仓库，负责生成本 preview 制品，不随 preview 发布。 |
-| 客户专属 `.tgz` 制品 | 私有客户交付包，可包含客户 workspace 和文档，明确排除在 Pulse 之外。 |
+| 客户专属 `.tgz` 制品 | 私有客户交付包，可包含客户 workspace 和文档，明确排除在 ZEGO Conversational Agent 之外。 |
 
 ## 最快体验
 
@@ -49,7 +51,7 @@ cd pulse-conversation-agent-gateway-v0.1.0-preview.23
 | 模块 | 负责内容 |
 | --- | --- |
 | ZEGOCLOUD AI Agent API / Server | RTC 音频、ASR、TTS 播放、打断事件、AgentInstance 执行。 |
-| Pulse Conversation Agent Gateway | LLM callback、workspace 运行、阶段人设指引、Action 与 Skill 编排、会话上下文、观测、可选的 Gateway 托管 AgentInstance 生命周期。 |
+| ZEGO Conversational Agent Gateway | LLM callback、workspace 运行、阶段人设指引、Action 与 Skill 编排、会话上下文、观测、可选的 Gateway 托管 AgentInstance 生命周期。 |
 | 客户服务端 | 用户鉴权、RTC Token04、App/Web API、运行配置、事件转发、Gateway 私有生命周期调用、action feedback 转发。 |
 | 客户 App/Web | ZEGOCLOUD Express SDK、进房、麦克风发布、字幕/状态/action UI 展示，并通过客户服务端回传 action 结果。 |
 

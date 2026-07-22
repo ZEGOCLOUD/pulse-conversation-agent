@@ -1,6 +1,6 @@
 # Skill Integration
 
-Skills connect Pulse to external tools, retrieval systems, business APIs, or other Agent runtimes. The goal is to keep business capability integration outside the Gateway core while giving the Agent a stable way to request and consume results.
+Skills connect ZEGO Conversational Agent to external tools, retrieval systems, business APIs, or other Agent runtimes. The goal is to keep business capability integration outside the Gateway core while giving the Agent a stable way to request and consume results.
 
 ## Recommended Pattern
 

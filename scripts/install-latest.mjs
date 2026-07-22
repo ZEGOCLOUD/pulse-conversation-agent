@@ -50,7 +50,7 @@ const releasesDir = path.join(installRoot, 'releases');
 const targetDir = path.join(releasesDir, extractDir);
 const currentLink = path.join(installRoot, 'current');
 
-console.log(`Pulse Conversation Agent ${manifest.version || release.tag_name}`);
+console.log(`ZEGO Conversational Agent Service ${manifest.version || release.tag_name}`);
 console.log(`Install root: ${installRoot}`);
 console.log(`Artifact: ${tgzAsset.name}`);
 console.log(`sha256: ${actualSha}`);

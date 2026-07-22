@@ -6,7 +6,7 @@ Actions let the Agent coordinate with product UI and customer business systems. 
 
 - Customer App/Web renders Action UI and submits action results through the customer service.
 - Customer service authenticates the user and relays action feedback to the Gateway.
-- Pulse Gateway keeps Action protocol and Agent context aligned.
+- ZEGO Conversational Agent Gateway keeps Action protocol and Agent context aligned.
 - Browser and mobile clients must not hold Gateway control tokens.
 
 ## Action Result Guidance

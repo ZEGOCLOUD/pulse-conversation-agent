@@ -2,7 +2,7 @@
 
 ## v0.1.0-preview.23
 
-Customer candidate Developer Preview for Pulse Conversation Agent.
+Customer candidate Developer Preview for ZEGO Conversational Agent Service.
 
 - Provides a compiled realtime conversation-agent Gateway artifact.
 - Includes the `default-service-assistant` workspace, reference customer service, and Web validation assets.

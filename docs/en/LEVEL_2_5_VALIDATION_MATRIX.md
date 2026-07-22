@@ -1,6 +1,6 @@
 # Level 2.5 Validation Matrix
 
-Use this matrix when validating Pulse Conversation Agent through a local Cloudflare Tunnel with real realtime backend credentials. It separates the already proven normal voice path from the features that still need explicit evidence: ACTION feedback, proactive speech, and multi-workspace behavior.
+Use this matrix when validating ZEGO Conversational Agent Service through a local Cloudflare Tunnel with real realtime backend credentials. It separates the already proven normal voice path from the features that still need explicit evidence: ACTION feedback, proactive speech, and multi-workspace behavior.
 
 Level 2.5 is a developer integration smoke. It does not replace production acceptance or managed cloud validation.
 

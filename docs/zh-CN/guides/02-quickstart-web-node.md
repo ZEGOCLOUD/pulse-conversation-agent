@@ -1,6 +1,6 @@
 # 快速开始：Web + Node 服务
 
-这是开发者接入Developer Preview 的最短路径：先启动编译后的 Pulse Conversation Agent，再按需启动客户 BFF reference 和浏览器 live-call 示例。
+这是开发者接入Developer Preview 的最短路径：先启动编译后的 ZEGO Conversational Agent Service，再按需启动客户 BFF reference 和浏览器 live-call 示例。
 
 ## 1. 初始化客户项目
 
@@ -66,7 +66,7 @@ cp .env.example .env.local
 
 Gateway 配置可以通过 secret ref 持有 ZEGO ServerSecret，用于 ZEGO Server API 签名。RTC Token04 仍由客户服务端/BFF 生成，不应迁入 Gateway。
 
-## 4. 启动 Pulse Conversation Agent
+## 4. 启动 ZEGO Conversational Agent Service
 
 推荐方式：
 
@@ -89,7 +89,7 @@ curl http://127.0.0.1:3000/voice/mode-info
 
 ## 5. 启动客户 BFF reference
 
-该服务不是 Pulse Conversation Agent runtime 必需项，但 Web/RTC Live E2E 参考路径需要它。
+该服务不是 ZEGO Conversational Agent Service runtime 必需项，但 Web/RTC Live E2E 参考路径需要它。
 
 ```bash
 cd examples/agent-service-zego-create-agent

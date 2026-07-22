@@ -1,6 +1,6 @@
 # English Developer Guides
 
-Use these guides when you need more than the top-level README. They explain how to install, configure, integrate, validate, and troubleshoot Pulse Conversation Agent without exposing runtime source code.
+Use these guides when you need more than the top-level README. They explain how to install, configure, integrate, validate, and troubleshoot ZEGO Conversational Agent Service without exposing runtime source code.
 
 Recommended reading order:
 

@@ -18,7 +18,7 @@ beta Web example helper 使用两条通道：
 - `onStatus()` 接收 `Cmd=6` 智能体状态：idle、listening、thinking、speaking。
 - `onMode()`、`onAction()`、`onPerf()` 消费客户服务端 SSE 信令。
 
-Pulse Conversation Agent 不应要求接入方理解兼容 adapter 概念，也不能在浏览器端创建 ZEGO 凭证。
+ZEGO Conversational Agent Service 不应要求接入方理解兼容 adapter 概念，也不能在浏览器端创建 ZEGO 凭证。
 Web/移动端只应访问客户 BFF 和 ZEGOCLOUD Express SDK：
 
 | 浏览器/移动端需要 | example 展示的客户 BFF API 形态 |

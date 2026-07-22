@@ -1,10 +1,12 @@
-# Pulse Conversation Agent
+# ZEGO Conversational Agent
 
 Language: English | [简体中文](README.zh-CN.md)
 
 **Build self-hosted realtime AI agents for voice/video apps with ZEGOCLOUD AI Agent APIs.**
 
-`pulse-conversation-agent` is a Developer Preview Gateway for building realtime conversation agents inside apps. It is distributed as a compiled runtime artifact with customer-facing documentation. It is not an open-source source distribution, and it is not a hosted service or production SLA product.
+ZEGO Conversational Agent Service, version 3.0 Beta is a Developer Preview Gateway for building realtime conversation agents inside apps. Built on ZEGO Conversational AI capabilities, it is distributed as a compiled runtime artifact with customer-facing documentation. It is not an open-source source distribution, and it is not a hosted service or production SLA product.
+
+Compatibility note: the `pulse-conversation-agent` repository and artifact path are retained as compatibility identifiers; the product brand is ZEGO Conversational Agent.
 
 Use it to evaluate a customer-deployed realtime agent Gateway that handles LLM callbacks, workspace behavior, stage guidance, UI Actions, Skills, Hooks, dynamic context, and observability. The current preview integrates with ZEGOCLOUD AI Agent APIs for RTC, ASR, TTS, interruption, and AgentInstance execution.
 
@@ -24,7 +26,7 @@ This repository is the external preview surface for the runtime artifact. Source
 
 ## What You Get
 
-- A compiled Pulse Conversation Agent Gateway runtime.
+- A compiled ZEGO Conversational Agent Gateway runtime.
 - A default editable workspace for quick evaluation.
 - A reference customer service for RTC token, AgentInstance lifecycle, events, and action feedback.
 - A Web validation page for live RTC, subtitles, stage/status display, and Action UI testing.
@@ -47,7 +49,7 @@ The downloaded `.tgz` contains the runnable package: `bin/`, `setup/`, `workspac
 1. Create or sign in to a ZEGOCLOUD account: https://www.zegocloud.com/
 2. Create an app in the ZEGOCLOUD Console and prepare the AppID and ServerSecret in your own secret store.
 3. Enable or configure the ZEGOCLOUD AI Agent APIs required for RTC, ASR, TTS, interruption, and AgentInstance execution.
-4. Install Pulse from the GitHub Release artifact and run local setup/check/doctor.
+4. Install ZEGO Conversational Agent from the GitHub Release artifact and run local setup/check/doctor.
 5. Use the packaged Web validation page or your own app to run a live validation path.
 
 ## Fastest Path
@@ -76,7 +78,7 @@ To pin a specific version for rollback or troubleshooting, download that GitHub 
 | Surface | Owns |
 | --- | --- |
 | ZEGOCLOUD AI Agent APIs / Server | RTC audio, ASR, TTS playback, interruption events, and AgentInstance execution. |
-| Pulse Conversation Agent Gateway | LLM callbacks, workspace runtime, stage guidance, Action and Skill orchestration, session context, observability, and optional Gateway-owned AgentInstance lifecycle. |
+| ZEGO Conversational Agent Gateway | LLM callbacks, workspace runtime, stage guidance, Action and Skill orchestration, session context, observability, and optional Gateway-owned AgentInstance lifecycle. |
 | Customer service | User auth, RTC Token04, browser/mobile APIs, runtime config, event relay, private Gateway lifecycle calls, and action feedback relay. |
 | Customer App/Web | ZEGOCLOUD Express SDK, room entry, microphone publishing, subtitles/status/action UI display, and action result submission through the customer service. |
 
@@ -84,9 +86,9 @@ Browser and mobile clients must not hold Gateway control tokens or call Gateway 
 
 ## Binary Distribution
 
-Pulse is a compiled-runtime-only Developer Preview. The repository intentionally exposes docs, checksums, manifests, validation evidence, and issue templates while keeping runtime source code out of the public preview. No source-code license is granted by this repository.
+ZEGO Conversational Agent is a compiled-runtime-only Developer Preview. The repository intentionally exposes docs, checksums, manifests, validation evidence, and issue templates while keeping runtime source code out of the public preview. No source-code license is granted by this repository.
 
-This shape is meant for evaluation and pilot integration, not for repackaging Pulse as a hosted service or presenting it as a production SLA product.
+This shape is meant for evaluation and pilot integration, not for repackaging ZEGO Conversational Agent as a hosted service or presenting it as a production SLA product.
 
 ## Trust And Verification
 
@@ -124,7 +126,7 @@ Ask the tool to read `AI_INSTALL.md` and `AGENTS.md`, then install this preview 
 Suggested first prompt:
 
 ```text
-Use the conversation-agent-dev-assistant repository to install the latest Pulse Conversation Agent Developer Preview from the GitHub Release artifact. Keep secrets out of chat, run setup/check/doctor, then guide Level 2.5 live smoke validation. If an installed package already exists, use conversation-agent upgrade --check first and follow artifact-manifest.json upgradePolicy.
+Use the conversation-agent-dev-assistant repository to install the latest ZEGO Conversational Agent Service Developer Preview from the GitHub Release artifact. Keep secrets out of chat, run setup/check/doctor, then guide Level 2.5 live smoke validation. If an installed package already exists, use conversation-agent upgrade --check first and follow artifact-manifest.json upgradePolicy.
 ```
 
 ## Planned Next

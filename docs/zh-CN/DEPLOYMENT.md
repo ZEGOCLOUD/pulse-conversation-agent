@@ -1,6 +1,6 @@
 # 部署说明
 
-本文位于已解压的 Pulse Conversation Agent 运行包内。进入本目录后，请直接使用随包 CLI。
+本文位于已解压的 ZEGO Conversational Agent Service 运行包内。进入本目录后，请直接使用随包 CLI。
 
 ```bash
 ./bin/conversation-agent setup --project ./pulse-project

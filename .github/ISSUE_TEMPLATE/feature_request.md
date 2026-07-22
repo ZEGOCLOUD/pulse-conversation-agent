@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a capability for the Pulse Conversation Agent preview
+about: Suggest a capability for the ZEGO Conversational Agent preview
 title: "[Feature]: "
 labels: enhancement
 assignees: ""
@@ -17,4 +17,3 @@ Describe the feature or behavior you need.
 ## Current Workaround
 
 How are you handling this today?
-
