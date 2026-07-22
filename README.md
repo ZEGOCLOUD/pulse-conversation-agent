@@ -126,7 +126,7 @@ Ask the tool to read `AI_INSTALL.md` and `AGENTS.md`, then install this preview 
 Suggested first prompt:
 
 ```text
-Use the conversation-agent-dev-assistant repository to install the latest ZEGO Conversational Agent Service Developer Preview from the GitHub Release artifact. Keep secrets out of chat, run setup/check/doctor, then guide Level 2.5 live smoke validation. If an installed package already exists, use conversation-agent upgrade --check first and follow artifact-manifest.json upgradePolicy.
+Use the conversation-agent-dev-assistant repository to install the latest ZEGO Conversational Agent Developer Preview from the GitHub Release artifact. Keep secrets out of chat, run setup/check/doctor, then guide Level 2.5 live smoke validation. If an installed package already exists, use conversation-agent upgrade --check first and follow artifact-manifest.json upgradePolicy.
 ```
 
 ## Planned Next

@@ -106,6 +106,8 @@ function verifyBrowsableRepositoryBrand() {
   const primaryReadme = fs.readFileSync(primaryReadmePath, 'utf8');
   for (const required of [
     'ZEGO Conversational Agent',
+    'ZEGO Conversational Agent Gateway',
+    'ZEGO Conversational Agent Developer Preview',
     'ZEGO Conversational Agent Service, version 3.0 Beta',
     'Built on ZEGO Conversational AI capabilities'
   ]) {
@@ -115,24 +117,42 @@ function verifyBrowsableRepositoryBrand() {
   for (const file of walk(repoRoot)) {
     const rel = path.relative(repoRoot, file).replace(/\\/g, '/');
     if (rel === '.git' || rel.startsWith('.git/') || !isBrowsableTextFile(rel)) continue;
-    const text = fs.readFileSync(file, 'utf8');
-    for (const pattern of currentBrandPatterns()) {
-      assert(!pattern.test(text), `customer-visible current-brand text ${pattern} in ${rel}`);
+    const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/);
+    for (const [index, line] of lines.entries()) {
+      for (const pattern of currentBrandPatterns()) {
+        if (!pattern.test(line) || isDeprecatedNameDetectorRegexLiteral(rel, line)) continue;
+        assert(false, `customer-visible deprecated display brand ${pattern} in ${rel}:${index + 1}`);
+      }
     }
   }
 }
 
 function isBrowsableTextFile(rel) {
-  return path.extname(rel).toLowerCase() === '.md' || path.basename(rel) === 'LICENSE';
+  const extension = path.extname(rel).toLowerCase();
+  return ['.md', '.mjs', '.js', '.json', '.yaml', '.yml', '.html', '.txt'].includes(extension) || path.basename(rel) === 'LICENSE';
 }
 
 function currentBrandPatterns() {
   return [
+    /Conversational Agent Service Gateway/i,
+    /ZEGO Conversational Agent Service Developer Preview/i,
     /Pulse Conversation Agent/i,
     /ZEGO Conversation Agent/i,
     /Conversation Agent 3\.0 Service/i,
     /Conversation AI/i
   ];
+}
+
+function isDeprecatedNameDetectorRegexLiteral(rel, line) {
+  const detectorRuleLiterals = [
+    '/Conversational Agent Service ' + 'Gateway/i',
+    '/ZEGO Conversational Agent Service ' + 'Developer Preview/i',
+    '/Pulse ' + 'Conversation Agent/i',
+    '/ZEGO ' + 'Conversation Agent/i',
+    '/Conversation Agent 3\\.0 ' + 'Service/i',
+    '/Conversation ' + 'AI/i'
+  ];
+  return rel === 'scripts/verify-public-artifact.mjs' && detectorRuleLiterals.includes(line.trim().replace(/,$/, ''));
 }
 
 function forbiddenTextPatterns() {
