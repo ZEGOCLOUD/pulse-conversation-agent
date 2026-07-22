@@ -147,9 +147,9 @@ function isDeprecatedNameDetectorRegexLiteral(rel, line) {
   const detectorRuleLiterals = [
     '/Conversational Agent Service ' + 'Gateway/i',
     '/ZEGO Conversational Agent Service ' + 'Developer Preview/i',
-    '/Pulse ' + 'Conversation Agent/i',
-    '/ZEGO ' + 'Conversation Agent/i',
-    '/Conversation Agent 3\\.0 ' + 'Service/i',
+    '/Pulse ' + 'Conversation ' + 'Agent/i',
+    '/ZEGO ' + 'Conversation ' + 'Agent/i',
+    '/Conversation ' + 'Agent 3\\.0 ' + 'Service/i',
     '/Conversation ' + 'AI/i'
   ];
   return rel === 'scripts/verify-public-artifact.mjs' && detectorRuleLiterals.includes(line.trim().replace(/,$/, ''));
